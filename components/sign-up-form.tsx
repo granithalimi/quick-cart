@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 
 export function SignUpForm({
   className,
@@ -40,7 +41,7 @@ export function SignUpForm({
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { error, data } = await supabase.auth.signUp({
         email,
         password,
         options: {
@@ -48,7 +49,9 @@ export function SignUpForm({
         },
       });
       if (error) throw error;
-      router.push("/auth/sign-up-success");
+      if (data) console.log(data.user?.id)
+      await supabase.from("roles").insert({user_id: data.user?.id})
+      router.push("/protected");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
     } finally {
@@ -59,6 +62,11 @@ export function SignUpForm({
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
+        <div className="flex justify-center mt-5">
+          <Link href={"/"} className="mx-auto">
+            <Image width={80} height={0} src={"/images/quickcart.png"} alt={"Logo"} />
+          </Link>
+        </div>
         <CardHeader>
           <CardTitle className="text-2xl">Sign up</CardTitle>
           <CardDescription>Create a new account</CardDescription>

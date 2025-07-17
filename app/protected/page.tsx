@@ -12,6 +12,9 @@ export default async function ProtectedPage() {
     redirect("/auth/login");
   }
 
+  const role_table = await supabase.from("roles").select("role").eq("user_id", data?.user?.id).single()
+  const role = role_table?.data?.role
+
   return (
     <div className="flex-1 w-full flex flex-col gap-12">
       <div className="w-full">
@@ -20,6 +23,7 @@ export default async function ProtectedPage() {
           This is a protected page that you can only see as an authenticated
           user
         </div>
+        <h1>The user Role is... <span className="font-bold">{role}</span></h1>
       </div>
       <div className="flex flex-col gap-2 items-start">
         <h2 className="font-bold text-2xl mb-4">Your user details</h2>
@@ -32,5 +36,5 @@ export default async function ProtectedPage() {
         <FetchDataSteps />
       </div>
     </div>
-  );
+  )
 }

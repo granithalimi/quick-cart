@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes grayPulse {
+  0%, 100% {
+    background-color: #d1d5db; /* bg-gray-300 */
+  }
+  50% {
+    background-color: #9ca3af; /* bg-gray-400 */
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -65,4 +80,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.animated-gray-box {
+  animation: grayPulse 3500ms ease-in-out infinite;
 }
