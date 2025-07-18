@@ -85,3 +85,13 @@
 .animated-gray-box {
   animation: grayPulse 3500ms ease-in-out infinite;
 }
+
+.show-arrow{
+  opacity: 1;
+  transition: all 400ms;
+}
+
+.hide-arrow{
+  opacity: 0;
+  transition: all 300ms;
+}

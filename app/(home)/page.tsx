@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import RecentProducts from "@/components/recent-products";
 import ProductsSkeleton from "../skeleton/ProductsSkeleton";
 import Products from "@/components/products";
+import Footer from "@/components/footer";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -33,7 +34,7 @@ export default async function Home() {
         <Products products={products} categories={all_categories} />
       </Suspense>
 
-      {/* <Footer /> */}
+      <Footer />
     </main>
   )
 }
