@@ -34,7 +34,7 @@ export default function Products({ categories, products }: { categories: string[
                 product[ind].map((p:Products, index:number) => (
                   <Link href={`products/${p.id}`} key={index} className="flex flex-col justify-between border border-gray-500 rounded-lg w-60 shadow-black/5 shadow-lg hover:scale-105 cursor-pointer duration-500 p-5">
                     <div className="image flex justify-center">
-                      <Image width={110} height={0} src={p.thumbnail} alt={p.title} />
+                      <Image width={110} height={0} src={p.thumbnail} alt={p.title} className="h-auto" unoptimized />
                     </div>
                     <div className="flex flex-col justify-between">
                       <h1 className={` text-center`}>{p.title}</h1>

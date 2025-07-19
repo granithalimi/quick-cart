@@ -30,7 +30,7 @@ export default function RecentProducts({ recent_products }: { recent_products: R
                 rp.map((p: RecentProducts, index: number) => (
                   <Link href={`products/${p.id}`} key={index} className="flex flex-col justify-between border border-gray-500 rounded-lg w-60 shadow-black/5 shadow-lg hover:scale-105 cursor-pointer duration-500 p-5">
                     <div className="image flex justify-center">
-                      <Image width={110} height={0} src={"/images/quickcart.png"} alt={p.name} />
+                      <Image className="h-auto" width={110} height={0} src={"/images/quickcart.png"} alt={p.name} />
                     </div>
                     <div className="flex flex-col justify-between">
                       <h1 className={` text-center`}>{p.name}</h1>
