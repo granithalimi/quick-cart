@@ -8,6 +8,7 @@ import Account from "./your-account";
 export default async function Header() {
   const supabase = await createClient()
   const { data, error } = await supabase.auth.getUser()
+  const role = await supabase.from("roles").select().eq("user_id", data?.user?.id).single()
 
   return (
     <header className="w-full h-16 bg-gray-800 mb-10 shadow-black/20 shadow-lg">
@@ -36,7 +37,7 @@ export default async function Header() {
                   </div>
                 ) : (
                   <div>
-                    <Account email={data?.user?.email} />
+                    <Account role={role.data.role} email={data?.user?.email} />
                   </div>
                 )
             }

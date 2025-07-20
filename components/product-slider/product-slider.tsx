@@ -30,7 +30,6 @@ export default function ProductSlider({ images }: Images) {
   useEffect(() => {
     window.scrollTo(0, 0)
     setImages(images)
-    console.log(images)
   }, [images])
 
   return (
