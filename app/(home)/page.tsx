@@ -27,6 +27,7 @@ export default async function Home() {
   return (
     <main>
       <Header />
+      {/* <Image width={300} height={300} alt="Cart" className="w-auto h-20 mx-auto mb-20" src={"/images/empty-cart.png"} /> */}
       <Suspense fallback={<ProductsSkeleton />}>
         {recent_products &&
           <RecentProducts recent_products={recent_products} />
