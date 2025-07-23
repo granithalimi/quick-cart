@@ -48,7 +48,7 @@ export default async function Page() {
                   <h1 className={`${fira.className} text-green-400`}>
                     {c.product.availabilityStatus}
                   </h1>
-                  <div className="flex justify-start px-2 gap-3 border  rounded-lg">
+                  <div className="flex justify-start px-2 gap-3 border border-gray-300 rounded-lg">
                     <button className="text-red-500">-</button>
                     {c.qty}
                     <button className="text-green-500">+</button>
