@@ -36,7 +36,7 @@ export default async function Header() {
             href={"/orders"}
             className="text-white flex items-center gap-0 hover:text-gray-400 duration-300"
           >
-            <TruckElectric className="" />
+            <TruckElectric />
             <h1 className={`${poppins.className} text-lg`}>Orders</h1>
           </Link>
         </div>

@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { createClient } from "./supabase/server";
 
 export async function addToCart(id: number) {
@@ -16,4 +17,6 @@ export async function addToCart(id: number) {
 
   if (error) console.log(error);
   if (data) console.log(data);
+
+  revalidatePath(`products/${id}`)
 }
