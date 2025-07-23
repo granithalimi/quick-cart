@@ -15,7 +15,7 @@ export default async function Page() {
   const cart = await supabase
     .from("carts")
     .select(
-      "carts_products(id, qty, product:products(thumbnail, title, price, availabilityStatus))",
+      "carts_products(id, qty, product:products(thumbnail, title, price, availabilityStatus))"
     )
     .eq("user_id", data?.user?.id)
     .order("id", { foreignTable: "carts_products", ascending: true })
@@ -51,16 +51,11 @@ export default async function Page() {
                   <h1 className={`${fira.className} text-green-400`}>
                     {c.product.availabilityStatus}
                   </h1>
-<<<<<<< HEAD
-                  <div className="flex justify-start px-2 gap-3 border  rounded-lg">
+                  <div className="flex justify-start px-2 gap-3 border border-gray-300 rounded-lg">
                     <form action={decreaseQty.bind(null, c.id)}>
                       <button className="text-red-500">-</button>
                     </form>
-=======
-                  <div className="flex justify-start px-2 gap-3 border border-gray-300 rounded-lg">
-                    <button className="text-red-500">-</button>
->>>>>>> 26f85b7954101afc99196c992b016e973477bc60
-                    {c.qty}
+                    <span>{c.qty}</span>
                     <form action={increaseQty.bind(null, c.id)}>
                       <button className="text-green-500">+</button>
                     </form>
@@ -125,7 +120,14 @@ export default async function Page() {
             />
           </div>
           <h1 className={`${fira.className}`}>
-            Cart is Empty! <br /> <Link className="text-white bg-orange-500 px-2 font-bold shadow-black/20 shadow py-1 rounded-lg hover:bg-orange-400 duration-300" href="/">Shop</Link> our most recent Products
+            Cart is Empty! <br />{" "}
+            <Link
+              className="text-white bg-orange-500 px-2 font-bold shadow-black/20 shadow py-1 rounded-lg hover:bg-orange-400 duration-300"
+              href="/"
+            >
+              Shop
+            </Link>{" "}
+            our most recent Products
           </h1>
         </div>
       )}
