@@ -51,10 +51,15 @@ export default async function Page() {
                   <h1 className={`${fira.className} text-green-400`}>
                     {c.product.availabilityStatus}
                   </h1>
+<<<<<<< HEAD
                   <div className="flex justify-start px-2 gap-3 border  rounded-lg">
                     <form action={decreaseQty.bind(null, c.id)}>
                       <button className="text-red-500">-</button>
                     </form>
+=======
+                  <div className="flex justify-start px-2 gap-3 border border-gray-300 rounded-lg">
+                    <button className="text-red-500">-</button>
+>>>>>>> 26f85b7954101afc99196c992b016e973477bc60
                     {c.qty}
                     <form action={increaseQty.bind(null, c.id)}>
                       <button className="text-green-500">+</button>
