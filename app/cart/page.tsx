@@ -30,7 +30,7 @@ export default async function Page() {
             Cart Products
           </h1>
           <div className="w-full text-end">Price</div>
-          <hr />
+          <hr className="border-t border-gray-300 my-4" />
           {products.map((c:any, ind: number) => (
             <div
               key={ind}
@@ -60,7 +60,7 @@ export default async function Page() {
               </div>
             </div>
           ))}
-          <hr />
+          <hr className="border-t border-gray-300 my-4" />
           <h1 className={`${montserrat.className} text-center mt-4`}>
             Place Order
           </h1>
