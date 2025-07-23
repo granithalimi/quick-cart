@@ -7,7 +7,8 @@ import { useEffect, useState } from "react"
 
 type RecentProducts = {
   id: number;
-  name: string;
+  title: string;
+  thumbnail: string;
   price: number;
 }
 
@@ -30,10 +31,10 @@ export default function RecentProducts({ recent_products }: { recent_products: R
                 rp.map((p: RecentProducts, index: number) => (
                   <Link href={`products/${p.id}`} key={index} className="flex flex-col justify-between border border-gray-500 rounded-lg w-60 shadow-black/5 shadow-lg hover:scale-105 cursor-pointer duration-500 p-5">
                     <div className="image flex justify-center">
-                      <Image className="h-auto" width={110} height={0} src={"/images/quickcart.png"} alt={p.name} />
+                      <Image className="h-auto" width={110} height={0} src={p.thumbnail} alt={p.title} />
                     </div>
                     <div className="flex flex-col justify-between">
-                      <h1 className={` text-center`}>{p.name}</h1>
+                      <h1 className={` text-center`}>{p.title}</h1>
                       <h1 className=" text-xl ">${p.price}</h1>
                     </div>
                   </Link>

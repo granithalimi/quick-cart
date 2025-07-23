@@ -9,33 +9,30 @@ import Footer from "@/components/footer";
 export default async function Home() {
   const supabase = await createClient();
 
-  const orders_table = await supabase.from("products").select().order("id", { ascending: true }).limit(5);
-  const recent_products = orders_table?.data
+  const products_table = await supabase
+    .from("products")
+    .select()
+    .order("id", { ascending: false })
+    .limit(5);
+  const recent_products = products_table?.data;
 
-  const all_categories = await fetch('https://dummyjson.com/products/category-list')
-    .then(data => data.json())
-
-  const products = [];
-
-  for (let i = 0; i < all_categories.length; i++) {
-    const product = await fetch(`https://dummyjson.com/products/category/${all_categories[i]}?limit=5`)
-      .then(res => res.json())
-      .then(data => data.products)
-    products.push(product)
-  }
+  const all_products = await supabase
+    .from("products")
+    .select()
+    .order("id", { ascending: true });
+  const products = all_products?.data;
 
   return (
     <main>
       <Header />
-      {/* <Image width={300} height={300} alt="Cart" className="w-auto h-20 mx-auto mb-20" src={"/images/empty-cart.png"} /> */}
       <Suspense fallback={<ProductsSkeleton />}>
-        {recent_products &&
+        {recent_products && (
           <RecentProducts recent_products={recent_products} />
-        }
-        <Products products={products} categories={all_categories} />
+        )}
+        {products && products.length > 0 && <Products products={products} />}
       </Suspense>
 
       <Footer />
     </main>
-  )
+  );
 }

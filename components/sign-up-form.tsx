@@ -51,7 +51,7 @@ export function SignUpForm({
       if (error) throw error;
       if (data) console.log(data.user?.id)
       await supabase.from("roles").insert({user_id: data.user?.id})
-      await supabase.from("cart").insert({user_id: data.user?.id})
+      await supabase.from("carts").insert({user_id: data.user?.id})
       router.push("/");
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred");
