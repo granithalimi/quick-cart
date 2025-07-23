@@ -4,7 +4,9 @@ import Header from "@/components/header";
 import Image from "next/image";
 import { fira, montserrat, poppins } from "../font/fonts";
 import { createClient } from "@/lib/supabase/server";
-import { TruckElectric } from "lucide-react";
+import { Trash2, TruckElectric } from "lucide-react";
+import { decreaseQty, increaseQty, removeFromCart } from "@/lib/actions";
+import Link from "next/link";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -13,12 +15,13 @@ export default async function Page() {
   const cart = await supabase
     .from("carts")
     .select(
-      "carts_products(qty, product:products(thumbnail, title, price, availabilityStatus))"
+      "carts_products(id, qty, product:products(thumbnail, title, price, availabilityStatus))",
     )
     .eq("user_id", data?.user?.id)
+    .order("id", { foreignTable: "carts_products", ascending: true })
     .single();
 
-  const products = cart.data?.carts_products
+  const products = cart.data?.carts_products;
   return (
     <div className="min-h-screen">
       <Header />
@@ -31,7 +34,7 @@ export default async function Page() {
           </h1>
           <div className="w-full text-end">Price</div>
           <hr className="border-t border-gray-300 my-4" />
-          {products.map((c:any, ind: number) => (
+          {products.map((c: any, ind: number) => (
             <div
               key={ind}
               className="w-full rounded-lg my-3 flex justify-between"
@@ -49,14 +52,25 @@ export default async function Page() {
                     {c.product.availabilityStatus}
                   </h1>
                   <div className="flex justify-start px-2 gap-3 border  rounded-lg">
-                    <button className="text-red-500">-</button>
+                    <form action={decreaseQty.bind(null, c.id)}>
+                      <button className="text-red-500">-</button>
+                    </form>
                     {c.qty}
-                    <button className="text-green-500">+</button>
+                    <form action={increaseQty.bind(null, c.id)}>
+                      <button className="text-green-500">+</button>
+                    </form>
                   </div>
                 </div>
               </div>
-              <div className={`${poppins.className} text-green-400 `}>
+              <div
+                className={`${poppins.className} text-green-400 flex flex-col items-center`}
+              >
                 ${c.product.price}
+                <form action={removeFromCart.bind(null, c.id)}>
+                  <button className="bg-red-500 p-2 rounded-lg text-white hover:bg-red-600 duration-300">
+                    <Trash2 size={20} />
+                  </button>
+                </form>
               </div>
             </div>
           ))}
@@ -106,7 +120,7 @@ export default async function Page() {
             />
           </div>
           <h1 className={`${fira.className}`}>
-            Cart is Empty! <span>Shop our most recent Products</span>
+            Cart is Empty! <br /> <Link className="text-white bg-orange-500 px-2 font-bold shadow-black/20 shadow py-1 rounded-lg hover:bg-orange-400 duration-300" href="/">Shop</Link> our most recent Products
           </h1>
         </div>
       )}
