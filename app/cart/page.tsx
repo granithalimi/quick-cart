@@ -12,33 +12,18 @@ export default async function Page() {
     .select("cp:carts_products(product_id, qty, p:products(*))")
     .eq("user_id", data?.user?.id)
     .single();
-  console.log(cart.data?.cp);
 
   return (
     <div className="min-h-screen">
       <Header />
       {cart.data?.cp && cart.data?.cp.length > 0 ? (
-        <div className="w-10/12 bg-white shadow-lg shadow-black/10 rounded-lg mx-auto">
+        <div className="w-10/12 bg-white shadow-lg shadow-black/10 rounded-lg mx-auto p-10">
           {cart.data?.cp.map((c, ind) => (
             <div
               key={ind}
-              className="flex flex-col gap-3 justify-center items-center"
+              className=" w-full border border-black rounded-lg"
             >
-              <div className="grid grid-cols-3 gap-3 font-extrabold">
-                <h1 className="w-[100px]">Image</h1>
-                <h1>Title</h1>
-                <h1>Qty</h1>
-              </div>
-              <div className="grid grid-cols-3 gap-3">
-                <Image
-                  src={c.p.thumbnail}
-                  alt={c.p.title}
-                  width={100}
-                  height={100}
-                />
-                <h1>{c.p.title}</h1>
-                <h1>{c.qty}</h1>
-              </div>
+              test
             </div>
           ))}
         </div>
