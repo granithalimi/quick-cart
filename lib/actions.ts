@@ -3,9 +3,10 @@
 import { revalidatePath } from "next/cache";
 import { createClient } from "./supabase/server";
 
-export async function addToCart(id: number) {
+export async function addToCart(id: number, formData: FormData) {
   const supabase = await createClient();
   const auth = await supabase.auth.getUser();
+  const qty = formData.get("qty") as string;
 
   const cart_id = await supabase
     .from("carts")
@@ -13,16 +14,34 @@ export async function addToCart(id: number) {
     .eq("user_id", auth.data?.user?.id)
     .single();
 
-  const { data, error } = await supabase.from("carts_products").insert({
-    qty: 1,
-    carts_id: cart_id.data?.id,
-    product_id: id,
-  });
+  // Check if Prod exists in Cart
+  const cp = await supabase
+    .from("carts_products")
+    .select()
+    .eq("product_id", id)
+    .eq("carts_id", cart_id.data?.id);
 
-  if (error) console.log(error);
-  if (data) console.log(data);
+  // If doesnt exist create it, else add the qty
+  if (cp.data && cp.data.length > 0) {
+    const new_qty = parseInt(cp.data[0].qty) + parseInt(qty)
+    const {data, error} = await supabase.from("carts_products").update({qty:new_qty}).eq("id", cp.data[0].id)
 
-  revalidatePath(`products/${id}`);
+    if (error) console.log(error);
+    if (data) console.log(data);
+
+    revalidatePath(`products/${id}`);
+  } else {
+    const { data, error } = await supabase.from("carts_products").insert({
+      qty: qty,
+      carts_id: cart_id.data?.id,
+      product_id: id,
+    });
+
+    if (error) console.log(error);
+    if (data) console.log(data);
+
+    revalidatePath(`products/${id}`);
+  }
 }
 
 export async function increaseQty(id: number) {

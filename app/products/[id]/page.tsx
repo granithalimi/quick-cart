@@ -1,4 +1,4 @@
-import { montserrat, poppins } from "@/app/font/fonts";
+import { fira, montserrat, poppins } from "@/app/font/fonts";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import ProductSlider from "@/components/product-slider/product-slider";
@@ -19,6 +19,7 @@ export default async function Page({
   );
 
   const rating = [];
+  const qty_opt = []
   for (let i = 0; i < Math.floor(product.rating); i++) {
     rating.push(
       <Image
@@ -31,6 +32,12 @@ export default async function Page({
         style={{ filter: "drop-shadow(0 2px 3px rgba(0, 0, 0, 0.3))" }}
       />,
     );
+  }
+
+  for (let i = 1; i <= product.stock && i <= 20; i++) {
+    qty_opt.push(
+      <option key={i}>{i}</option>
+    )
   }
 
   return (
@@ -56,7 +63,9 @@ export default async function Page({
                 <div className="text-gray-600">
                   <p className={`${poppins.className}`}>
                     Availability:{" "}
-                    <span className="text-green-500">
+                    <span
+                      className={`${product.availabilityStatus == "In Stock" ? "text-green-500" : "text-orange-500"}`}
+                    >
                       {product.availabilityStatus}
                     </span>
                   </p>
@@ -123,9 +132,19 @@ export default async function Page({
                   </div>
                 </div>
                 <form
-                  className="my-10 flex justify-center items-center"
+                  className="my-10 flex flex-col justify-center items-center gap-3"
                   action={addToCart.bind(null, product.id)}
                 >
+                  <div className="flex gap-3">
+                    <h1>Qty:</h1>
+                    <select
+                      className={`${fira.className} px-2 py-1 shadow rounded duration-300`}
+                      defaultValue={1}
+                      name="qty"
+                    >
+                      {qty_opt}
+                    </select>
+                  </div>
                   <button
                     type="submit"
                     className={`${poppins.className} px-10 py-2 bg-yellow-400 shadow-lg rounded-full flex gap-2 hover:bg-yellow-500 duration-300`}

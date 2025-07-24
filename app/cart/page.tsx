@@ -48,7 +48,7 @@ export default async function Page() {
                 />
                 <div className="flex flex-col items-start">
                   <h1 className={`${poppins.className}`}>{c.product.title}</h1>
-                  <h1 className={`${fira.className} text-green-400`}>
+                  <h1 className={`${fira.className} ${c.product.availabilityStatus == "In Stock"  ? "text-green-500" : "text-orange-500"} `}>
                     {c.product.availabilityStatus}
                   </h1>
                   <div className="flex justify-start px-2 gap-3 border border-gray-300 rounded-lg">
