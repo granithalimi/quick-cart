@@ -25,7 +25,7 @@ export default function RecentProducts({ recent_products }: { recent_products: R
         (
           <div className="w-10/12 bg-white py-10 rounded-md shadow-black/5 shadow-lg mb-10 flex flex-col justify-center items-center gap-3">
             <h1 className={`${fira.className} text-3xl drop-shadow-lg uppercase`}>Recent Products</h1>
-            <div className="flex gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
               {
                 rp && rp.length > 0 &&
                 rp.map((p: RecentProducts, index: number) => (

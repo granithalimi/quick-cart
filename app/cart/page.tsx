@@ -26,7 +26,7 @@ export default async function Page() {
     <div className="min-h-screen">
       <Header />
       {products && products.length > 0 ? (
-        <div className="w-10/12 bg-white shadow-lg shadow-black/10 rounded-lg mx-auto p-10">
+        <div className="w-11/12 lg:w-10/12 bg-white shadow-lg shadow-black/10 rounded-lg mx-auto py-10 px-4 lg:px-10">
           <h1
             className={`${fira.className} text-3xl drop-shadow-lg uppercase text-center mb-5`}
           >
@@ -45,10 +45,11 @@ export default async function Page() {
                   height={150}
                   src={c.product.thumbnail}
                   alt={c.product.title}
+                  className="w-[85px] h-[85px] lg:w-[150px] lg:h-[150px]"
                 />
                 <div className="flex flex-col items-start">
-                  <h1 className={`${poppins.className}`}>{c.product.title}</h1>
-                  <h1 className={`${fira.className} ${c.product.availabilityStatus == "In Stock"  ? "text-green-500" : "text-orange-500"} `}>
+                  <h1 className={`${poppins.className} text-xs md:text-base`}>{c.product.title}</h1>
+                  <h1 className={`${fira.className} ${c.product.availabilityStatus == "In Stock"  ? "text-green-500" : "text-orange-500"} text-sm lg:text-base`}>
                     {c.product.availabilityStatus}
                   </h1>
                   <div className="flex justify-start px-2 gap-3 border border-gray-300 rounded-lg">
@@ -67,8 +68,8 @@ export default async function Page() {
               >
                 ${c.product.price}
                 <form action={removeFromCart.bind(null, c.id)}>
-                  <button className="bg-red-500 p-2 rounded-lg text-white hover:bg-red-600 duration-300">
-                    <Trash2 size={20} />
+                  <button className="bg-red-500 p-1 lg:p-2 rounded-lg text-white hover:bg-red-600 duration-300">
+                    <Trash2 className="w-5" />
                   </button>
                 </form>
               </div>
@@ -78,7 +79,7 @@ export default async function Page() {
           <h1 className={`${montserrat.className} text-center mt-4`}>
             Place Order
           </h1>
-          <form className="flex flex-col w-1/4 gap-3 mx-auto">
+          <form className="flex flex-col w-11/12 md:w-1/2 lg:w-1/4 gap-3 mx-auto">
             <div className="flex flex-col">
               <label>First Name:</label>
               <input
@@ -108,7 +109,7 @@ export default async function Page() {
           </form>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 md:w-2/3 md:mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 w-11/12 gap-3 md:w-2/3 mx-auto">
           <div className="flex justify-center">
             <Image
               width={300}
@@ -119,7 +120,7 @@ export default async function Page() {
               style={{ filter: "drop-shadow(0 8px 8px rgba(0, 0, 0, 0.2))" }}
             />
           </div>
-          <h1 className={`${fira.className}`}>
+          <h1 className={`${fira.className} md:text-end text-start`}>
             Cart is Empty! <br />{" "}
             <Link
               className="text-white bg-orange-500 px-2 font-bold shadow-black/20 shadow py-1 rounded-lg hover:bg-orange-400 duration-300"

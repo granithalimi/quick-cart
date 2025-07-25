@@ -44,13 +44,13 @@ export default async function Page({
     <div>
       <Header />
       <main className="w-full">
-        <div className="mx-auto w-2/3 flex gap-10">
+        <div className="mx-auto w-11/12 lg:w-2/3 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {product && (
             <>
-              <div className="w-1/2 flex justify-center ">
+              <div className="flex justify-center ">
                 <ProductSlider images={product.images} />
               </div>
-              <div className="w-1/2 flex flex-col gap-5">
+              <div className="flex flex-col gap-5">
                 <h1 className={`${montserrat.className} text-4xl`}>
                   {product.title}
                 </h1>
@@ -94,7 +94,7 @@ export default async function Page({
                       (
                         r: {
                           rating: string;
-                          reviewerEmail: string;
+                          reviewerName: string;
                           comment: string;
                           date: string;
                         },
@@ -113,18 +113,18 @@ export default async function Page({
                           </div>
                           <div>
                             <h1
-                              className={`${poppins.className} text-gray-400 text-sm`}
+                              className={`${poppins.className} text-gray-400 text-xs md:text-base`}
                             >
-                              {r.reviewerEmail}
+                              {r.reviewerName}
                             </h1>
                             <p
-                              className={`${poppins.className} text-gray-500 text-md`}
+                              className={`${poppins.className} text-gray-500 text-xs md:text-lg`}
                             >
                               {r.comment}
                             </p>
                           </div>
                           <div className="ms-auto flex items-center">
-                            <p>{formatDate(r.date)}</p>
+                            <p className={`text-xs md:text-base`}>{formatDate(r.date)}</p>
                           </div>
                         </div>
                       ),

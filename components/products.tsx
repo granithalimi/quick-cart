@@ -23,7 +23,7 @@ export default function Products({ products }: { products: Products[] }) {
       {product && product.length > 0 && (
         <>
           <div className="w-10/12 bg-white py-10 rounded-md shadow-black/5 shadow-lg mb-10 flex justify-center">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
               {product.map((p, ind) => (
                 <Link
                   href={`products/${p.id}`}

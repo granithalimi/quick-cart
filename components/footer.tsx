@@ -16,19 +16,27 @@ export default function Footer() {
   }, []);
 
   const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" })
-  }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <>
-      <button onClick={() => handleClick()} className={`${scrolledDown ? "block show-arrow" : "hide-arrow"} fixed p-5 rounded-full bg-white shadow-black/20 shadow-lg bottom-5 right-5 hover:bg-gray-200`}>
+      <button
+        onClick={() => handleClick()}
+        className={`${scrolledDown ? "block show-arrow" : "hide-arrow"} fixed p-5 rounded-full bg-white shadow-black/20 shadow-lg bottom-5 right-5 hover:bg-gray-300`}
+      >
         <ArrowUp className="text-3xl" />
       </button>
       <div className="w-full flex flex-col justify-center items-center bg-gray-800 py-10 mt-10 h-96">
         <div>
-          <Image width={80} height={0} src={'/images/quickcart.png'} alt="Logo" />
+          <Image
+            width={80}
+            height={0}
+            src={"/images/quickcart.png"}
+            alt="Logo"
+          />
         </div>
       </div>
     </>
-  )
+  );
 }
