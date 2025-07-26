@@ -10,6 +10,7 @@ import { LogoutButton } from "./logout-button";
 export default function SmallNav() {
   const [clicked, setClicked] = useState(false);
   const [user, setUser] = useState<string | null>();
+  const [cartItems, setCartItems] = useState(false);
 
   useEffect(() => {
     const getUser = async () => {
@@ -17,6 +18,16 @@ export default function SmallNav() {
       const { data } = await supabase.auth.getUser();
       if (data?.user) {
         setUser(data?.user?.email);
+        const cart = await supabase
+          .from("carts")
+          .select("cp:carts_products(product_id, qty)")
+          .eq("user_id", data?.user?.id)
+          .single();
+        if (cart.data?.cp && cart.data?.cp.length > 0) {
+          setCartItems(true);
+        } else {
+          setCartItems(false);
+        }
       }
     };
 
@@ -42,8 +53,11 @@ export default function SmallNav() {
           />
         </Link>
       </div>
-      <div>
+      <div className="relative">
         <MenuIcon className="text-white" onClick={() => handleMenuClick()} />
+        {cartItems && (
+          <div className="p-[5px] rounded-full bg-red-400 absolute top-0 -right-1 border border-white"></div>
+        )}
       </div>
 
       <div
@@ -79,29 +93,33 @@ export default function SmallNav() {
             </button>
           </form>
         </div>
-        <div className="w-11/12 mx-auto border-b border-gray-400">
-          <Link href={"/"} className={`${poppins.className} text-white`}>
-            Home
-          </Link>
-        </div>
-        <div className="w-11/12 mx-auto border-b border-gray-400">
-          <Link href={"/cart"} className={`${poppins.className} text-white`}>
-            Cart
-          </Link>
-        </div>
-        <div className="w-11/12 mx-auto border-b border-gray-400">
-          <Link href={"/orders"} className={`${poppins.className} text-white`}>
-            Orders
-          </Link>
-        </div>
+        <Link
+          href={"/"}
+          className={`${poppins.className} text-white w-11/12 mx-auto border-b border-gray-400`}
+        >
+          Home
+        </Link>
+        <Link
+          href={"/cart"}
+          className={`${poppins.className} text-white w-11/12 mx-auto border-b border-gray-400 relative`}
+        >
+          Cart
+          {cartItems && (
+            <div className="p-[4px] rounded-full bg-red-400 absolute top-0 -left-1 border border-white"></div>
+          )}
+        </Link>
+        <Link
+          href={"/orders"}
+          className={`${poppins.className} text-white w-11/12 mx-auto border-b border-gray-400`}
+        >
+          Orders
+        </Link>
 
         {/* Sign-in/Logout button */}
         <div className="w-11/12 mx-auto mb-3 border-t border-gray-500 p-2 rounded-lg text-gray-500">
           {user ? (
             <div className="flex justify-between items-center text-white">
-              <h1 className={`${poppins.className}`}>
-                Welcome, {user}
-              </h1>
+              <h1 className={`${poppins.className}`}>Welcome, {user}</h1>
               <LogoutButton />
             </div>
           ) : (
