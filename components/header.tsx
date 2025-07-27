@@ -21,7 +21,7 @@ export default async function Header() {
     .single();
 
   return (
-    <header className="w-full h-16 bg-gray-800 mb-10 shadow-black/20 shadow-lg">
+    <header className="w-full h-16 bg-gray-800 shadow-black/20 shadow-lg">
       <nav className="hidden w-4/5 h-full mx-auto lg:flex justify-between">
         <div className="w-3/12 h-full flex justify-start items-center lg:gap-7">
           <Link href={"/"} className="text-white">

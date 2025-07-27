@@ -5,6 +5,7 @@ import RecentProducts from "@/components/recent-products";
 import ProductsSkeleton from "../skeleton/ProductsSkeleton";
 import Products from "@/components/products";
 import Footer from "@/components/footer";
+import Slider from "@/components/slider";
 
 export default async function Home() {
   const supabase = await createClient();
@@ -25,6 +26,7 @@ export default async function Home() {
   return (
     <main>
       <Header />
+      <Slider />
       <Suspense fallback={<ProductsSkeleton />}>
         {recent_products && (
           <RecentProducts recent_products={recent_products} />
