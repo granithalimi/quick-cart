@@ -22,6 +22,7 @@ export default async function Page() {
     .single();
 
   const products = cart.data?.carts_products;
+  const total_price = cart.data?.carts_products.reduce((sum, prod:any) => sum + Number(prod.product.price) * Number(prod.qty), 0).toFixed(2)
   return (
     <div className="min-h-screen">
       <Header />
@@ -75,6 +76,10 @@ export default async function Page() {
               </div>
             </div>
           ))}
+          <hr className="border-t border-gray-300 my-4" />
+          <h1 className="text-end">Total Price:</h1>
+          <h1 className={`${poppins.className} text-green-400 text-end`}>${total_price}</h1>
+                
           <hr className="border-t border-gray-300 my-4" />
           <h1 className={`${montserrat.className} text-center mt-4`}>
             Place Order
