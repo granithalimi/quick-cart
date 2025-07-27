@@ -7,7 +7,7 @@ export default function Account({ email, role }: { email: string | undefined, ro
   return (
     <div onMouseEnter={() => setView(true)} onMouseLeave={() => setView(false)} className="text-sm cursor-default p-1 rounded-t-sm border border-transparent hover:border-gray-300 relative text-end">
       Welcome, <br /> {email}
-      <div className={`${view ? "flex flex-col items-center gap-2" : "hidden"} w-full absolute text-xs top-full left-0 bg-white rounded-b-sm p-1 outline outline-1 outline-gray-400`}>
+      <div className={`${view ? "flex flex-col items-center gap-2" : "hidden"} w-full absolute text-xs top-full left-0 bg-white rounded-b-sm p-1 outline outline-1 outline-gray-400 z-30`}>
         <div className="w-full mt-3">
           <p className="text-black">Email: {email}</p>
         </div>

@@ -43,7 +43,7 @@ export default async function Page({
   return (
     <div>
       <Header />
-      <main className="w-full">
+      <main className="w-full mt-10">
         <div className="mx-auto w-11/12 lg:w-2/3 grid grid-cols-1 lg:grid-cols-2 gap-10">
           {product && (
             <>

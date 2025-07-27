@@ -24,7 +24,7 @@ export default async function Page() {
   const products = cart.data?.carts_products;
   const total_price = cart.data?.carts_products.reduce((sum, prod:any) => sum + Number(prod.product.price) * Number(prod.qty), 0).toFixed(2)
   return (
-    <div className="min-h-screen">
+    <main className="min-h-screen">
       <Header />
       {products && products.length > 0 ? (
         <div className="w-11/12 lg:w-10/12 bg-white shadow-lg shadow-black/10 rounded-lg mx-auto py-10 px-4 lg:px-10">
@@ -137,6 +137,6 @@ export default async function Page() {
           </h1>
         </div>
       )}
-    </div>
+    </main>
   );
 }
