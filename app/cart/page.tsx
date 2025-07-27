@@ -27,7 +27,7 @@ export default async function Page() {
     <main className="min-h-screen">
       <Header />
       {products && products.length > 0 ? (
-        <div className="w-11/12 lg:w-10/12 bg-white shadow-lg shadow-black/10 rounded-lg mx-auto py-10 px-4 lg:px-10">
+        <div className="w-11/12 lg:w-10/12 bg-white shadow-lg shadow-black/10 rounded-lg mx-auto mt-10 py-10 px-4 lg:px-10">
           <h1
             className={`${fira.className} text-3xl drop-shadow-lg uppercase text-center mb-5`}
           >
@@ -114,7 +114,7 @@ export default async function Page() {
           </form>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 w-11/12 gap-3 md:w-2/3 mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 w-11/12 gap-3 md:w-2/3 mx-auto mt-10">
           <div className="flex justify-center">
             <Image
               width={300}

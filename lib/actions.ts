@@ -14,6 +14,11 @@ export async function addToCart(id: number, formData: FormData) {
     .eq("user_id", auth.data?.user?.id)
     .single();
 
+  // Check if qty is 0
+  if(parseInt(qty) < 1 || !qty){
+    return revalidatePath(`products/${id}`)
+  }
+
   // Check if Prod exists in Cart
   const cp = await supabase
     .from("carts_products")
