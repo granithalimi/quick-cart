@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { createClient } from "./supabase/server";
+import { redirect } from "next/navigation";
 
 export async function addToCart(id: number, formData: FormData) {
   const supabase = await createClient();
@@ -10,7 +11,8 @@ export async function addToCart(id: number, formData: FormData) {
 
   // Check if user is authenticated
   if(!auth.data || auth.error){
-    return revalidatePath("auth/login")
+    console.log("hi")
+    return redirect("auth/login")
   }
 
   const cart_id = await supabase
