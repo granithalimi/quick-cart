@@ -8,6 +8,11 @@ export async function addToCart(id: number, formData: FormData) {
   const auth = await supabase.auth.getUser();
   const qty = formData.get("qty") as string;
 
+  // Check if user is authenticated
+  if(!auth.data || auth.error){
+    return revalidatePath("auth/login")
+  }
+
   const cart_id = await supabase
     .from("carts")
     .select("id")

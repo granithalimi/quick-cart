@@ -1,7 +1,19 @@
 import { updateSession } from "@/lib/supabase/middleware";
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
+
+const PUBLIC_ROUTES = [
+  /^\/products\/[^\/]+$/,
+];
 
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // Check if the route matches any public route
+  const isPublic = PUBLIC_ROUTES.some((pattern) => pattern.test(pathname));
+
+  if (isPublic) {
+    return NextResponse.next(); // allow access without auth
+  }
   return await updateSession(request);
 }
 
