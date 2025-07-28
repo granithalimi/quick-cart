@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import image1 from "@/public/images/slider/pic1.jpg"
-import image2 from "@/public/images/slider/pic2.jpg"
-import image3 from "@/public/images/slider/pic3.jpg"
-import image4 from "@/public/images/slider/pic4.jpg"
+import image1 from "@/public/images/slider/pic1.jpg";
+import image2 from "@/public/images/slider/pic2.jpg";
+import image3 from "@/public/images/slider/pic3.jpg";
+import image4 from "@/public/images/slider/pic4.jpg";
 import Image from "next/image";
-import { MoveLeft, MoveRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, MoveLeft, MoveRight } from "lucide-react";
 
 export default function Slider() {
   const [index, setindex] = useState(0);
@@ -57,21 +57,28 @@ export default function Slider() {
         ))}
         <button
           onClick={() => left()}
-          className="absolute px-3 left-0 top-0 bottom-0 hover:bg-[rgb(0,0,0,0.5)] bg-[rgb(0,0,0,0.2)] text-white text-2xl duration-500"
+          className="absolute px-3 left-0 top-0 bottom-0 hover:bg-[rgb(0,0,0,0.4)] text-white text-2xl duration-500"
         >
-          <MoveLeft className="text-white" />
+          <ArrowLeft
+            className="text-white"
+            style={{ filter: "drop-shadow(0 2px 3px rgba(0, 0, 0, 0.9))" }}
+          />
         </button>
         <button
           onClick={() => right()}
-          className="absolute px-3 right-0 top-0 bottom-0 hover:bg-[rgb(0,0,0,0.5)] bg-[rgb(0,0,0,0.2)] text-white text-2xl duration-500"
+          className="absolute px-3 right-0 top-0 bottom-0 hover:bg-[rgb(0,0,0,0.4)] text-white text-2xl duration-500"
         >
-          <MoveRight />
+          <ArrowRight
+            style={{ filter: "drop-shadow(0 2px 3px rgba(0, 0, 0, 0.9))" }}
+            className="text-white"
+          />
         </button>
         <div className="absolute bottom-0 h-10 w-full flex justify-center items-center">
           {images.map((_, ind) => (
             <button
               key={ind}
               onClick={() => change(ind)}
+              style={{ filter: "drop-shadow(0 2px 3px rgba(0, 0, 0, 0.9))" }}
               className={`${ind === index ? "p-2" : "p-1"} rounded-lg bg-white mx-3 duration-300`}
             ></button>
           ))}
