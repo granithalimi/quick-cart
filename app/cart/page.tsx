@@ -5,7 +5,7 @@ import Image from "next/image";
 import { fira, montserrat, poppins } from "../font/fonts";
 import { createClient } from "@/lib/supabase/server";
 import { Minus, Plus, Trash2, TruckElectric } from "lucide-react";
-import { decreaseQty, increaseQty, removeFromCart } from "@/lib/actions";
+import { decreaseQty, increaseQty, placeOrder, removeFromCart } from "@/lib/actions";
 import Link from "next/link";
 import Footer from "@/components/footer";
 
@@ -106,7 +106,7 @@ export default async function Page() {
           <h1 className={`${montserrat.className} text-center mt-4`}>
             Place Order
           </h1>
-          <form className="flex flex-col w-11/12 md:w-1/2 lg:w-1/4 gap-3 mx-auto">
+          <form action={placeOrder} className="flex flex-col w-11/12 md:w-1/2 lg:w-1/4 gap-3 mx-auto">
             <div className="flex flex-col">
               <label>First Name:</label>
               <input

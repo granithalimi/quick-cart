@@ -1,7 +1,13 @@
 "use client";
 import { fira, poppins } from "@/app/font/fonts";
 import { createClient } from "@/lib/supabase/client";
-import { MenuIcon, SearchIcon, X } from "lucide-react";
+import {
+  MenuIcon,
+  SearchIcon,
+  ShoppingBag,
+  TruckElectric,
+  X,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -101,18 +107,20 @@ export default function SmallNav() {
         </Link>
         <Link
           href={"/cart"}
-          className={`${poppins.className} text-white w-11/12 mx-auto border-b border-gray-400 relative`}
+          className={`${poppins.className} text-white w-11/12 mx-auto border-b border-gray-400 relative flex items-center gap-1`}
         >
-          Cart
-          {cartItems && (
-            <div className="p-[4px] rounded-full bg-red-400 absolute top-0 -left-1 border border-white"></div>
-          )}
+            {cartItems && (
+              <div className="p-[4px] rounded-full bg-red-400 absolute -top-1 -left-1 border border-white"></div>
+            )}
+          <ShoppingBag size={22} />
+          <h1>Cart</h1>
         </Link>
         <Link
           href={"/orders"}
-          className={`${poppins.className} text-white w-11/12 mx-auto border-b border-gray-400`}
+          className={`${poppins.className} text-white w-11/12 mx-auto border-b border-gray-400 flex gap-1 items-center`}
         >
-          Orders
+          <TruckElectric size={24} />
+          <h1>Orders</h1>
         </Link>
 
         {/* Sign-in/Logout button */}

@@ -10,9 +10,9 @@ export async function addToCart(id: number, formData: FormData) {
   const qty = formData.get("qty") as string;
 
   // Check if user is authenticated
-  if(!auth.data || auth.error){
-    console.log("hi")
-    return redirect("auth/login")
+  if (!auth.data || auth.error) {
+    console.log("hi");
+    return redirect("auth/login");
   }
 
   const cart_id = await supabase
@@ -22,8 +22,8 @@ export async function addToCart(id: number, formData: FormData) {
     .single();
 
   // Check if qty is 0
-  if(parseInt(qty) < 1 || !qty){
-    return revalidatePath(`products/${id}`)
+  if (parseInt(qty) < 1 || !qty) {
+    return revalidatePath(`products/${id}`);
   }
 
   // Check if Prod exists in Cart
@@ -35,8 +35,11 @@ export async function addToCart(id: number, formData: FormData) {
 
   // If doesnt exist create it, else add the qty
   if (cp.data && cp.data.length > 0) {
-    const new_qty = parseInt(cp.data[0].qty) + parseInt(qty)
-    const {data, error} = await supabase.from("carts_products").update({qty:new_qty}).eq("id", cp.data[0].id)
+    const new_qty = parseInt(cp.data[0].qty) + parseInt(qty);
+    const { data, error } = await supabase
+      .from("carts_products")
+      .update({ qty: new_qty })
+      .eq("id", cp.data[0].id);
 
     if (error) console.log(error);
     if (data) console.log(data);
@@ -117,4 +120,49 @@ export async function removeFromCart(id: number) {
   if (error) console.log(error);
   if (data) console.log(data);
   revalidatePath("cart");
+}
+
+export async function placeOrder() {
+  const supabase = await createClient();
+  const auth = await supabase.auth.getUser();
+
+  // Check if user is authenticated
+  if (!auth.data || auth.error) {
+    console.log("hi");
+    return redirect("auth/login");
+  }
+
+  // Create Order
+  const user_id = auth.data?.user.id;
+  const { data, error } = await supabase
+    .from("orders")
+    .insert({ user_id: user_id })
+    .select("id")
+    .single();
+  if (error) console.log(error);
+  if (data) console.log(data);
+
+  // Get Cart
+  const cart = await supabase
+    .from("carts")
+    .select("cp:carts_products(*)")
+    .eq("user_id", user_id)
+    .order("id", { ascending: true })
+    .single();
+
+  // Check Cart length
+  if (cart.data?.cp && cart.data?.cp.length > 0) {
+    const cart_length = cart.data?.cp.length;
+    // Set Products for the Orders
+    for (let i = 0; i < cart_length; i++) {
+      await supabase
+        .from("orders_products")
+        .insert({
+          order_id: data?.id,
+          product_id: cart.data.cp[i].product_id,
+          qty: cart.data.cp[i].qty,
+        });
+    }
+  }
+  revalidatePath("cart")
 }

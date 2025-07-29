@@ -26,7 +26,7 @@ export default function RecentProducts({
   return (
     <div className="flex flex-col items-center">
       {recent_products && recent_products.length > 0 && (
-        <div className="w-11/12 md:w-10/12 bg-white py-10 rounded-md shadow-black/5 shadow-lg mb-10 flex flex-col justify-center items-center gap-3">
+        <div className="w-11/12 lg:w-10/12 bg-white py-10 rounded-md shadow-black/5 shadow-lg mb-10 flex flex-col justify-center items-center gap-3">
           <h1 className={`${fira.className} text-3xl drop-shadow-lg uppercase`}>
             Recent Products
           </h1>
