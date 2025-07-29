@@ -1,5 +1,6 @@
 "use client";
 
+import { fira, poppins } from "@/app/font/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -22,13 +23,13 @@ export default function Products({ products }: { products: Products[] }) {
     <div className="flex flex-col items-center">
       {product && product.length > 0 && (
         <>
-          <div className="w-10/12 bg-white py-10 rounded-md shadow-black/5 shadow-lg mb-10 flex justify-center">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
+          <div className="w-11/12 lg:w-10/12 bg-white py-10 rounded-md shadow-black/5 shadow-lg mb-10 flex justify-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-3">
               {product.map((p, ind) => (
                 <Link
                   href={`products/${p.id}`}
                   key={ind}
-                  className="flex flex-col justify-between border border-gray-500 rounded-lg w-60 shadow-black/5 shadow-lg hover:scale-105 cursor-pointer duration-500 p-5"
+                  className="flex flex-col justify-between border border-gray-500 rounded-lg w-36 lg:w-60 shadow-black/5 shadow-lg hover:scale-105 cursor-pointer duration-500 p-5"
                 >
                   <div className="image flex justify-center">
                     <Image
@@ -41,8 +42,8 @@ export default function Products({ products }: { products: Products[] }) {
                     />
                   </div>
                   <div className="flex flex-col justify-between">
-                    <h1 className={` text-center`}>{p.title}</h1>
-                    <h1 className=" text-xl ">${p.price}</h1>
+                    <h1 className={`${poppins.className} text-sm lg:text-base text-center text-gray-600`}>{p.title}</h1>
+                    <h1 className={`${fira.className} lg:text-xl text-green-500 font-extrabold`}>${p.price}</h1>
                   </div>
                 </Link>
               ))}
