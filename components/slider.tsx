@@ -6,7 +6,7 @@ import image2 from "@/public/images/slider/pic2.jpg";
 import image3 from "@/public/images/slider/pic3.jpg";
 import image4 from "@/public/images/slider/pic4.jpg";
 import Image from "next/image";
-import { ArrowLeft, ArrowRight, MoveLeft, MoveRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 export default function Slider() {
   const [index, setindex] = useState(0);
