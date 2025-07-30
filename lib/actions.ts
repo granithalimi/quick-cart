@@ -11,7 +11,6 @@ export async function addToCart(id: number, formData: FormData) {
 
   // Check if user is authenticated
   if (!auth.data || auth.error) {
-    console.log("hi");
     return redirect("auth/login");
   }
 
@@ -128,7 +127,6 @@ export async function placeOrder() {
 
   // Check if user is authenticated
   if (!auth.data || auth.error) {
-    console.log("hi");
     return redirect("auth/login");
   }
 
@@ -145,7 +143,7 @@ export async function placeOrder() {
   // Get Cart
   const cart = await supabase
     .from("carts")
-    .select("cp:carts_products(*)")
+    .select("*, cp:carts_products(*)")
     .eq("user_id", user_id)
     .order("id", { ascending: true })
     .single();
@@ -164,5 +162,7 @@ export async function placeOrder() {
         });
     }
   }
-  revalidatePath("cart")
+
+  await supabase.from("carts_products").delete().eq("carts_id", cart.data?.id)
+  redirect("/orders")
 }
