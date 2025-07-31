@@ -5,6 +5,7 @@ import Link from "next/link";
 import { montserrat, poppins } from "@/app/font/fonts";
 import Account from "./your-account";
 import SmallNav from "./small-nav";
+import { search } from "@/lib/actions";
 
 export default async function Header() {
   const supabase = await createClient();
@@ -42,8 +43,9 @@ export default async function Header() {
           </Link>
         </div>
         <div className="flex justify-center items-center h-full w-8/12">
-          <form className="flex justify-center items-center w-full h-full">
+          <form action={search} className="flex justify-center items-center w-full h-full">
             <input
+              name="search"
               className="w-full border-gray-500 font-bold text-md bg-gray-200 ps-3 py-2 rounded-l-lg"
               placeholder="Search..."
             />

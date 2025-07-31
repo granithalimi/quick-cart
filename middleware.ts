@@ -3,6 +3,7 @@ import { NextResponse, type NextRequest } from "next/server";
 
 const PUBLIC_ROUTES = [
   /^\/products\/[^\/]+$/,
+  /^\/search(?:\/.*)?$/,
 ];
 
 export async function middleware(request: NextRequest) {

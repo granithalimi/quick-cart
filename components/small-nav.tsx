@@ -12,6 +12,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LogoutButton } from "./logout-button";
+import { search } from "@/lib/actions";
 
 export default function SmallNav() {
   const [clicked, setClicked] = useState(false);
@@ -89,8 +90,9 @@ export default function SmallNav() {
         </div>
 
         <div className="w-11/12 mx-auto">
-          <form className="flex justify-center items-center w-full h-full">
+          <form action={search} className="flex justify-center items-center w-full h-full">
             <input
+              name="search"
               className="w-full border-b focus:outline-none text-white border-gray-500 font-bold text-md bg-transparent ps-3 pb-1 rounded-l-lg"
               placeholder="Search..."
             />

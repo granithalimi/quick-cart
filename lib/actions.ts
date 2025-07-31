@@ -165,3 +165,8 @@ export async function placeOrder() {
   await supabase.from("carts_products").delete().eq("carts_id", cart.data?.id);
   redirect("/orders");
 }
+
+export async function search(formData: FormData){
+  const search = formData.get("search") as string
+  redirect(`/search?q=${encodeURIComponent(search)}`)
+}
