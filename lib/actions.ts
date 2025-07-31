@@ -130,15 +130,7 @@ export async function placeOrder() {
     return redirect("auth/login");
   }
 
-  // Create Order
   const user_id = auth.data?.user.id;
-  const { data, error } = await supabase
-    .from("orders")
-    .insert({ user_id: user_id })
-    .select("id")
-    .single();
-  if (error) console.log(error);
-  if (data) console.log(data);
 
   // Get Cart
   const cart = await supabase
@@ -150,19 +142,26 @@ export async function placeOrder() {
 
   // Check Cart length
   if (cart.data?.cp && cart.data?.cp.length > 0) {
+    // Create Order
+    const { data, error } = await supabase
+      .from("orders")
+      .insert({ user_id: user_id })
+      .select("id")
+      .single();
+    if (error) console.log(error);
+    if (data) console.log(data);
+
     const cart_length = cart.data?.cp.length;
     // Set Products for the Orders
     for (let i = 0; i < cart_length; i++) {
-      await supabase
-        .from("orders_products")
-        .insert({
-          order_id: data?.id,
-          product_id: cart.data.cp[i].product_id,
-          qty: cart.data.cp[i].qty,
-        });
+      await supabase.from("orders_products").insert({
+        order_id: data?.id,
+        product_id: cart.data.cp[i].product_id,
+        qty: cart.data.cp[i].qty,
+      });
     }
   }
 
-  await supabase.from("carts_products").delete().eq("carts_id", cart.data?.id)
-  redirect("/orders")
+  await supabase.from("carts_products").delete().eq("carts_id", cart.data?.id);
+  redirect("/orders");
 }

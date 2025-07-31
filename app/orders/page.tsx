@@ -5,6 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 import { fira, poppins } from "../font/fonts";
 import Image from "next/image";
 import Footer from "@/components/footer";
+import Link from "next/link";
 
 export default async function Page() {
   const supabase = await createClient();
@@ -90,7 +91,28 @@ export default async function Page() {
           ))}
         </div>
       ) : (
-        <h1>No orders yet...</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 w-11/12 gap-3 md:w-2/3 mx-auto mt-10">
+          <div className="flex justify-center">
+            <Image
+              width={300}
+              height={300}
+              className="w-auto h-28"
+              src={"/images/order.svg"}
+              alt="Empty Cart"
+              style={{ filter: "drop-shadow(0 8px 8px rgba(0, 0, 0, 0.2))" }}
+            />
+          </div>
+          <h1 className={`${fira.className} md:text-center text-start`}>
+            Order is Empty! <br />{" "}
+            <Link
+              className="text-white bg-orange-500 px-2 font-bold shadow-black/20 shadow py-1 rounded-lg hover:bg-orange-400 duration-300"
+              href="/"
+            >
+              Shop
+            </Link>{" "}
+            our most recent Products
+          </h1>
+        </div>
       )}
 
       {data && data.length > 0 && <Footer />}

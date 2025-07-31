@@ -155,7 +155,7 @@ export default async function Page() {
               style={{ filter: "drop-shadow(0 8px 8px rgba(0, 0, 0, 0.2))" }}
             />
           </div>
-          <h1 className={`${fira.className} md:text-end text-start`}>
+          <h1 className={`${fira.className} md:text-center text-start`}>
             Cart is Empty! <br />{" "}
             <Link
               className="text-white bg-orange-500 px-2 font-bold shadow-black/20 shadow py-1 rounded-lg hover:bg-orange-400 duration-300"
